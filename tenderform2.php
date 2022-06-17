@@ -2,7 +2,7 @@
 
 session_start();
 // Include database connection file
-include 'config.php';
+require_once 'config.php';
 
 if (!isset($_SESSION['ID'])) {
     header("Location:login.php");
@@ -127,45 +127,24 @@ if (!isset($_SESSION['ID'])) {
                                 <h3>UiTM Tender Request Form</h3>
                                 
                                 <form method="post" action="tenderaction.php" id="contactForm" name="contactForm" class="contactForm">
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="form-group" >
-                                                 <p>Please select the vehicle type:</p>
-                                              <input type="radio" id="html" name="veh_type" value="Bus" onclick="text(0)" required>
-                                              <label for="html">Bus</label>
-                                              <input type="radio" id="css" name="veh_type" value="Van" onclick="text(1)" required>
-                                              <label for="van">Van</label>
-                                              <input type="radio" id="javascript" name="veh_type" value="Car" onclick="text(2)" required>
-                                              <label for="car">Car</label>
-                                            </div>
-                                        </div>
-                                        <!-- test-->
-                                        <div class="col-md-12"> 
-                                            <div class="form-group">
-                                             <label for="vehsegment">Please select vehicle segment:</label><br>
-                                                <select  name="veh_segment" id="bussegment" required>
-                                                  <option value="Shuttle bus">Shuttle bus</option>
-                                                  <option value="Mini bus">Mini bus</option>
-                                                  <option value="Single-decker bus">Single-decker bus</option>
-                                                </select>
-                                                
-                                                <select  name="veh_segment" id="vansegment" required>
-                                                  <option value="Medium van">Medium van</option>
-                                                  <option value="Large van">Large van</option>
-                                                </select>
-                                                
-                                                
-                                                <select  name="veh_segment" id="carsegment"required>
-                                                  <option value="Sedan">Sedan</option>
-                                                  <option value="Pickup">Pickup</option>
-                                                  <option value="CUV">CUV</option>
-                                                  <option value="MPV">MPV</option>
-                                                </select>
-                                                
-                                                
-                                                    
-                                            </div>
-                                        </div>
+										<div class="row">
+											<div class="col-md-12">
+												<div class="form-group" >
+													 <p>Please select the vehicle type:</p>
+												  <input type="radio" id="html" name="veh_type" value="Bus" onclick="text(0)" required>
+												  <label for="html">Bus</label>
+												  <input type="radio" id="css" name="veh_type" value="Van" onclick="text(1)" required>
+												  <label for="van">Van</label>
+												  <input type="radio" id="javascript" name="veh_type" value="Car" onclick="text(2)" required>
+												  <label for="car">Car</label>
+												</div>
+											</div>
+											<!-- test-->
+											<div class="col-md-12"> 
+												<div class="form-group" id="vsgmt">
+											
+												</div>
+											</div>
                                         
                     
                                         
@@ -198,25 +177,50 @@ if (!isset($_SESSION['ID'])) {
     </div>
 </section>
 
-
-<script> 
+<script type="text/javascript"> 
 function text(x){
 if (x==0){
-document.getElementById('bussegment').style.display='block';
-document.getElementById('vansegment').style.display='none';
-document.getElementById('carsegment').style.display='none';}
+	let str_bus = `
+		<label for="vehsegment">Please select vehicle segment:</label><br>
+		<select  name="veh_segment" id="bussegment" required>
+			<option value="Shuttle bus">Shuttle bus</option>
+			<option value="Mini bus">Mini bus</option>
+			<option value="Single-decker bus">Single-decker bus</option>
+		</select>
+	`;
+	document.getElementById('vsgmt').innerHTML=str_bus;
+
+
+}
 if (x==1){
-document.getElementById('bussegment').style.display='none';
-document.getElementById('vansegment').style.display='block';
-document.getElementById('carsegment').style.display='none';}
+	let str_van = `
+		<label for="vehsegment">Please select vehicle segment:</label><br>
+		<select  name="veh_segment" id="vansegment" required>
+			<option value="Medium van">Medium van</option>
+			<option value="Large van">Large van</option>
+		</select>
+	`;
+	document.getElementById('vsgmt').innerHTML=str_van;
+
+
+}
 if (x==2){
-document.getElementById('bussegment').style.display='none';
-document.getElementById('vansegment').style.display='none';
-document.getElementById('carsegment').style.display='block';}
+	let str_car = `
+		<label for="vehsegment">Please select vehicle segment:</label><br>
+		<select  name="veh_segment" id="carsegment"required>
+			<option value="Sedan">Sedan</option>
+			<option value="Pickup">Pickup</option>
+			<option value="CUV">CUV</option>
+			<option value="MPV">MPV</option>
+		</select>
+`;
+	document.getElementById('vsgmt').innerHTML=str_car;
+}
 return; 
 }
 
-</script>
+	</script>
+
         
         
         

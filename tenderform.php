@@ -42,29 +42,8 @@
 											</div>
 											<!-- test-->
 											<div class="col-md-12"> 
-												<div class="form-group">
-												 <label for="vehsegment">Please select vehicle segment:</label><br>
-													<select  name="veh_segment" id="bussegment" required>
-													  <option value="Shuttle bus">Shuttle bus</option>
-													  <option value="Mini bus">Mini bus</option>
-													  <option value="Single-decker bus">Single-decker bus</option>
-													</select>
-													
-													<select  name="veh_segment" id="vansegment" required>
-													  <option value="Medium van">Medium van</option>
-													  <option value="Large van">Large van</option>
-													</select>
-													
-													
-													<select  name="veh_segment" id="carsegment"required>
-													  <option value="Sedan">Sedan</option>
-													  <option value="Pickup">Pickup</option>
-													  <option value="CUV">CUV</option>
-													  <option value="MPV">MPV</option>
-													</select>
-													
-													
-														
+												<div class="form-group" id="vsgmt">
+											
 												</div>
 											</div>
 											
@@ -100,20 +79,45 @@
 	</section>
 
 	
-  <script> 
+  <script type="text/javascript"> 
 function text(x){
 if (x==0){
-document.getElementById('bussegment').style.display='block';
-document.getElementById('vansegment').style.display='none';
-document.getElementById('carsegment').style.display='none';}
+	let str_bus = `
+		<label for="vehsegment">Please select vehicle segment:</label><br>
+		<select  name="veh_segment" id="bussegment" required>
+			<option value="Shuttle bus">Shuttle bus</option>
+			<option value="Mini bus">Mini bus</option>
+			<option value="Single-decker bus">Single-decker bus</option>
+		</select>
+	`;
+	document.getElementById('vsgmt').innerHTML=str_bus;
+
+
+}
 if (x==1){
-document.getElementById('bussegment').style.display='none';
-document.getElementById('vansegment').style.display='block';
-document.getElementById('carsegment').style.display='none';}
+	let str_van = `
+		<label for="vehsegment">Please select vehicle segment:</label><br>
+		<select  name="veh_segment" id="vansegment" required>
+			<option value="Medium van">Medium van</option>
+			<option value="Large van">Large van</option>
+		</select>
+	`;
+	document.getElementById('vsgmt').innerHTML=str_van;
+
+
+}
 if (x==2){
-document.getElementById('bussegment').style.display='none';
-document.getElementById('vansegment').style.display='none';
-document.getElementById('carsegment').style.display='block';}
+	let str_car = `
+		<label for="vehsegment">Please select vehicle segment:</label><br>
+		<select  name="veh_segment" id="carsegment"required>
+			<option value="Sedan">Sedan</option>
+			<option value="Pickup">Pickup</option>
+			<option value="CUV">CUV</option>
+			<option value="MPV">MPV</option>
+		</select>
+`;
+	document.getElementById('vsgmt').innerHTML=str_car;
+}
 return; 
 }
 

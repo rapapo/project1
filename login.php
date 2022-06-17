@@ -1,7 +1,7 @@
 <?php
   session_start();
   if (isset($_SESSION['ID'])) {
-      header("Location:dashboard.php");
+      header("Location:tenderform2.php");
       exit();
   }
   // Include database connectivity
@@ -23,7 +23,7 @@
             $_SESSION['ID'] = $row['id'];
             $_SESSION['ROLE'] = $row['role'];
             $_SESSION['NAME'] = $row['name'];
-            header("Location:dashboard.php");
+            header("Location:tenderform2.php");
             die();                              
         }else{
           $errorMsg = "No user found on this username";

@@ -1,12 +1,12 @@
 <?php
-include 'config2.php';
+include 'config.php';
 $sql="insert into tender (veh_type,veh_segment,veh_date) values ('$_POST[veh_type]','$_POST[veh_segment]','$_POST[veh_date]')";
-if(!mysqli_query($conn,$sql)){
+if(!mysqli_query($con,$sql)){
 		die ('Error: ' .mysqli_error());
 	}
 	else {
 echo "<script type='text/jscript'>alert('Tender has been submitted!')</script>";
-header ('refresh: 1; url= tenderform2.php');
+header('refresh:1 url=tenderform2.php');
 	}
 
 ?>
