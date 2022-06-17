@@ -1,5 +1,3 @@
-config.php
-
 <?php
 
    // Database configuration    

@@ -2,7 +2,7 @@
 
 session_start();
 // Include database connection file
-include_once('config.php');
+require_once('config.php');
 
 if (!isset($_SESSION['ID'])) {
     header("Location:login.php");
