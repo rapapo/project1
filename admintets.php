@@ -163,7 +163,7 @@ $mysqli->close();
         <form id="assignOfficer" method="POST" class="form-container" onsubmit="submitForm()">
             <h1>Assign Officer For Tender: <p id="tenderVal"></p> </h1>
 
-            <label for="Officer Available:"><b>Office:</b></label>
+            <label for="Officer Available:"><b>Officer:</b></label>
             <input type="text" placeholder="You are required to assign 1 officer" id="off_id" name="off_id" required>
 
             <button type="submit" class="btn">ASSIGN</button>

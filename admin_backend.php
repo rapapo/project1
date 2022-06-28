@@ -6,7 +6,7 @@
 			die ('Error: ' .mysqli_error($con));
 		}
 		else {
-			echo "<script type='text/javascript'>alert('Admin has been assigned!')</script>";
+			echo "<script type='text/javascript'>alert('Officer has been assigned to the tender!')</script>";
 			header('refresh:5;url=admintets.php');
 		}
 	}

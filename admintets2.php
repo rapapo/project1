@@ -262,9 +262,25 @@ if (!isset($_SESSION['ID'])) {
          <form id="assignOfficer" method="POST" class="form-container" onsubmit="submitForm()">
              <h1>Assign Officer For Tender: <p id="tenderVal"></p> </h1>
  
-             <label for="Officer Available:"><b>Office:</b></label>
-             <input type="text" placeholder="You are required to assign 1 officer" id="off_id" name="off_id" required>
- 
+             <label for="Officer Available:"><b>Officer:</b></label>
+             
+
+             <div class="col-100">
+            <?php
+            $sql="SELECT off_name FROM officer";
+            $off_name = mysqli_query($con,$sql);
+            $officerlist=mysqli_fetch_all($off_name);
+            ?>
+
+            <select name="officer">
+            <?php
+            foreach($officerlist as $currOfficer){
+            $off_name=$currOfficer[0];
+            echo"<option value='$off_name'>$off_name</option>";
+            }
+            ?>
+            </select>
+            </div>
              <button type="submit" class="btn">ASSIGN</button>
              <button type="button" class="btn cancel" onclick="closeForm()">CANCEL</button>
          </form>
