@@ -3,8 +3,8 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Jun 28, 2022 at 07:37 AM
--- Server version: 10.4.10-MariaDB
+-- Generation Time: Jun 28, 2022 at 02:46 PM
+-- Server version: 5.7.33
 -- PHP Version: 7.4.19
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -20,6 +20,8 @@ SET time_zone = "+00:00";
 --
 -- Database: `project2`
 --
+CREATE DATABASE IF NOT EXISTS `project2` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+USE `project2`;
 
 -- --------------------------------------------------------
 
@@ -61,6 +63,7 @@ INSERT INTO `officer` (`off_id`, `off_username`, `off_name`) VALUES
 
 CREATE TABLE `proposal` (
   `pro_id` int(255) NOT NULL,
+  `tender_id` int(7) NOT NULL,
   `pro_price` varchar(255) NOT NULL,
   `pro_date` date NOT NULL,
   `veh_colour` varchar(255) NOT NULL,
@@ -71,17 +74,18 @@ CREATE TABLE `proposal` (
   `supp_num` text NOT NULL,
   `supp_email` text NOT NULL,
   `subject` text NOT NULL,
-  `supp_state` text NOT NULL
+  `supp_state` text NOT NULL,
+  `approved` int(2) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `proposal`
 --
 
-INSERT INTO `proposal` (`pro_id`, `pro_price`, `pro_date`, `veh_colour`, `veh_engine`, `pro_brand`, `veh_condition`, `supp_name`, `supp_num`, `supp_email`, `subject`, `supp_state`) VALUES
-(1, 'gvg', '2022-06-02', 'vgvg', 'gvv', 'vgvg', 'vgv', 'gvg', 'gvg', 'vgvg', 'vgv', 'klwp'),
-(2, 'ggg', '2022-06-29', 'ggg', 'gggg', 'ggg', 'ggg', 'ygbh', 'hbhbgggg', 'ggg', 'ggg', 'perak'),
-(3, 'FWAFWAFW', '2022-06-29', 'FWFWAFW', 'FWFWFWA', 'FWFWFWA', 'FWAFW', 'fwafawfaw', 'feFWAFAWF', 'FWFFWA', 'FAWAWAFWFAEW', 'klwp');
+INSERT INTO `proposal` (`pro_id`, `tender_id`, `pro_price`, `pro_date`, `veh_colour`, `veh_engine`, `pro_brand`, `veh_condition`, `supp_name`, `supp_num`, `supp_email`, `subject`, `supp_state`, `approved`) VALUES
+(1, 26, 'gvg', '2022-06-02', 'vgvg', 'gvv', 'vgvg', 'vgv', 'gvg', 'gvg', 'vgvg', 'vgv', 'klwp', 0),
+(2, 26, 'ggg', '2022-06-29', 'ggg', 'gggg', 'ggg', 'ggg', 'ygbh', 'hbhbgggg', 'ggg', 'ggg', 'perak', 1),
+(3, 26, 'FWAFWAFW', '2022-06-29', 'FWFWAFW', 'FWFWFWA', 'FWFWFWA', 'FWAFW', 'fwafawfaw', 'feFWAFAWF', 'FWFFWA', 'FAWAWAFWFAEW', 'klwp', 1);
 
 -- --------------------------------------------------------
 
@@ -107,7 +111,7 @@ CREATE TABLE `tender` (
   `veh_segment` varchar(25) DEFAULT NULL,
   `veh_date` date DEFAULT NULL,
   `off_id` int(255) DEFAULT NULL,
-  `as_status` text DEFAULT NULL
+  `as_status` text
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -137,7 +141,7 @@ CREATE TABLE `user` (
   `username` varchar(100) NOT NULL,
   `password` varchar(100) NOT NULL,
   `role` varchar(100) NOT NULL,
-  `created` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+  `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -191,7 +195,8 @@ ALTER TABLE `officer`
 -- Indexes for table `proposal`
 --
 ALTER TABLE `proposal`
-  ADD PRIMARY KEY (`pro_id`);
+  ADD PRIMARY KEY (`pro_id`),
+  ADD KEY `tender_id_fk` (`tender_id`);
 
 --
 -- Indexes for table `supplier`
@@ -268,6 +273,12 @@ ALTER TABLE `assign`
   ADD CONSTRAINT `off_id` FOREIGN KEY (`off_id`) REFERENCES `officer` (`off_id`),
   ADD CONSTRAINT `pro_id` FOREIGN KEY (`pro_id`) REFERENCES `proposal` (`pro_id`),
   ADD CONSTRAINT `tender_id` FOREIGN KEY (`tender_id`) REFERENCES `tender` (`tender_id`);
+
+--
+-- Constraints for table `proposal`
+--
+ALTER TABLE `proposal`
+  ADD CONSTRAINT `tender_id_fk` FOREIGN KEY (`tender_id`) REFERENCES `tender` (`tender_id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
