@@ -81,9 +81,9 @@ if (!isset($_SESSION['ID'])) {
                 </li>   
                 <h6>Order & Shipping</h6>
                <li class="nav-item">
-                       <a class="nav-link" href="">
+                       <a class="nav-link" href="admintets.php">
                        <span data-feather="users"></span>
-                  Shipping
+                  Assign admin
                    </a>
                </li>
                
