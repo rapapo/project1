@@ -5,6 +5,7 @@ $user = 'root';
 $password = '';
 $database = 'project2';
 $servername='localhost';
+
 $mysqli = new mysqli($servername, $user, $password, $database);
 // Checking for connections
 if ($mysqli->connect_error) 
