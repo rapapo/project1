@@ -1,83 +1,99 @@
-<?php
+<?php 
+session_start();
+  include("includes/config.php");
 
-  // Include database connection file
+   
+   $output = "";
 
-  include_once('config.php');
+  if (isset($_POST['login'])) {
+  	   
+  	   $uname = $_POST['uname'];
+  	   $role = $_POST['role'];
+  	   $pass = $_POST['pass'];
 
-  if (isset($_POST['submit'])) {
-    
-    $username = $con->real_escape_string($_POST['username']);
-    $password = $con->real_escape_string(md5($_POST['password']));
-    $name     = $con->real_escape_string($_POST['name']);
-    $role     = $con->real_escape_string($_POST['role']);
+  	   if (empty($uname)) {
+  	   	
+  	   }else if(empty($role)){
 
-    $query  = "INSERT INTO user (name,username,password,role) VALUES ('$name','$username','$password','$role')";
-    $result = $con->query($query);
+  	   }else if(empty($pass)){
 
-    if ($result==true) {
-      header("Location:login.php");
-      die();
-    }else{
-      $errorMsg  = "You are not Registred..Please Try again";
-    }   
+  	   }else{
 
+         $query = "SELECT * FROM users WHERE username='$uname' AND role='$role' AND password='$pass'";
+         $res = mysqli_query($connect,$query);
+
+         if (mysqli_num_rows($res) == 1) {
+
+         	  if ($role == "Officer") {
+
+         	  	$_SESSION['officer'] = $uname;
+         	  	header("Location: officer.php");
+         	  	
+         	  }else if($role == "Supplier"){
+                
+                $_SESSION['supplier'] = $uname;
+                header("Location: supplier.php");
+
+			}else if($role == "Admin"){
+                
+                $_SESSION['admin'] = $uname;
+                header("Location: admin.php");
+
+
+
+         	  }
+         	 $output .= "you have logged-In";
+         }else{
+             $output .= "Failed to login";
+         }
+
+  	   }
   }
 
-?>
+
+
+
+ ?>
+
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <title>UITM VEHICLE PROCUREMENT SYSTEM</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-  <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+	<meta charset="utf-8">
+	<title>Multilogin System</title>
+
 </head>
 <body>
+	<?php include("includes/header.php"); ?>
 
-<div class="card text-center" style="padding:20px;">
-  <h3>UITM VEHICLE PROCUREMENT SYSTEM</h3>
-</div><br>
 
-<div class="container">
-  <div class="row">
-    <div class="col-md-3"></div>
-      <div class="col-md-6">      
-        <?php if (isset($errorMsg)) { ?>
-          <div class="alert alert-danger alert-dismissible">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-            <?php echo $errorMsg; ?>
-          </div>
-        <?php } ?>
-        <form action="" method="POST">
-          <div class="form-group">
-            <label for="name">Name:</label>
-            <input type="text" class="form-control" name="name" placeholder="Enter Name" required="">
-          </div>
-          <div class="form-group">  
-            <label for="username">Username:</label>
-            <input type="text" class="form-control" name="username" placeholder="Enter Username" required="">
-          </div>
-          <div class="form-group">  
-            <label for="password">Password:</label>
-            <input type="password" class="form-control" name="password" placeholder="Enter Password" required="">
-          </div>
-          <div class="form-group">  
-            <label for="role">Role:</label>
-            <select class="form-control" name="role" required="">
-              <option value="">Select Role</option>
-              <option value="supplier">Supplier</option>
-              <option value="admin">Admin</option>
-              <option value="officer">Officer</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <p>Already have account ?<a href="login.php"> Login</a></p>
-            <input type="submit" name="submit" class="btn btn-primary">
-          </div>
-        </form>
-      </div>
-  </div>
-</div>
+
+	<div class="container">
+		<div class="col-md-12">
+			<div class="row d-flex justify-content-center">
+				<div class="col-md-6 shadow-sm" style="margin-top:100px;">
+					<form method="post">
+						<h3 class="text-center my-3">Login</h3>
+						<div class="text-center"><?php echo $output; ?></div>
+						<label>Username</label>
+						<input type="text" name="uname" class="form-control my-2" placeholder="Enter Username" autocomplete="off">
+                         
+                         <label>Select Role</label>
+						<select name="role" class="form-control my-2">
+							<option value="">Selete Role</option>
+							<option value="Officer">Officer</option>
+							<option value="Supplier">Supplier</option>
+							<option value="Admin">Admin</option>
+						</select>
+
+						<label>Password</label>
+						<input type="password" name="pass" class="form-control my-2" placeholder="Enter Password">
+
+						<input type="submit" name="login" class="btn btn-success" value="Login">
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
 </body>
 </html>
