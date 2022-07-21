@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Jun 28, 2022 at 02:46 PM
+-- Generation Time: Jul 21, 2022 at 03:19 PM
 -- Server version: 5.7.33
 -- PHP Version: 7.4.19
 
@@ -20,8 +20,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `project2`
 --
-CREATE DATABASE IF NOT EXISTS `project2` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
-USE `project2`;
 
 -- --------------------------------------------------------
 
@@ -127,7 +125,8 @@ INSERT INTO `tender` (`tender_id`, `veh_type`, `veh_segment`, `veh_date`, `off_i
 (31, 'Van', 'Large van', '2022-06-22', NULL, NULL),
 (32, 'Bus', 'Mini bus', '2022-07-09', NULL, NULL),
 (33, 'Car', 'CUV', '2022-07-08', NULL, NULL),
-(37, 'Van', 'Medium van', '2022-06-02', NULL, NULL);
+(37, 'Van', 'Medium van', '2022-06-02', NULL, NULL),
+(38, 'Car', 'Sedan', '2022-06-30', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -157,7 +156,24 @@ INSERT INTO `user` (`id`, `name`, `username`, `password`, `role`, `created`) VAL
 (6, 'Afiq', 'afiq', '1d3517c757fa59a67e1d3608682b4097', 'admin', '2022-06-16 09:35:50'),
 (7, 'Asyraf Akif', 'raaf', 'c5d5410e7f14ba184b44f51bf3aaa691', 'admin', '2022-06-17 12:44:29'),
 (8, 'Megat', 'megatcute', '99a3b25e1126f8d165991bb2876a1823', 'officer', '2022-06-17 13:06:24'),
-(9, 'Rahman Latif', 'rahman123', '2b16bb30c7254655630681d1d342ff48', 'officer', '2022-06-17 14:33:47');
+(9, 'Rahman Latif', 'rahman123', '2b16bb30c7254655630681d1d342ff48', 'officer', '2022-06-17 14:33:47'),
+(10, 'asyira', 'asyira', '1faf2bb05b31c33b684bb9a6e7c06de8', 'supplier', '2022-07-06 08:46:37');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `users`
+--
+
+CREATE TABLE `users` (
+  `id` int(100) NOT NULL,
+  `firstname` varchar(100) NOT NULL,
+  `surname` varchar(100) NOT NULL,
+  `username` varchar(100) NOT NULL,
+  `gender` varchar(100) NOT NULL,
+  `role` varchar(100) NOT NULL,
+  `password` varchar(100) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -217,6 +233,12 @@ ALTER TABLE `user`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `vehicle`
 --
 ALTER TABLE `vehicle`
@@ -248,13 +270,19 @@ ALTER TABLE `supplier`
 -- AUTO_INCREMENT for table `tender`
 --
 ALTER TABLE `tender`
-  MODIFY `tender_id` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+  MODIFY `tender_id` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT for table `users`
+--
+ALTER TABLE `users`
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `vehicle`
