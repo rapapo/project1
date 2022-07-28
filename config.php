@@ -5,10 +5,9 @@
    $username = "root"; 
    $password = ""; 
    $dbname   = "project2";
-   $sqlport = "3307";
-    
+   
    // Create database connection 
-   $con= new mysqli($hostname, $username, $password, $dbname, $sqlport); 
+   $con= new mysqli($hostname, $username, $password, $dbname); 
     
    // Check connection 
    if ($con->connect_error) { 
